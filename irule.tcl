@@ -15,7 +15,7 @@ when HTTP_REQUEST {
         
         log local0.error "Last request time for $client_ip: $::last_request"
         
-        if {$last_request ne "" && [clock seconds] - $last_request < $rps_value} {
+        if {$last_request ne "" && [clock seconds] - $last_request < $::rps_value} {
             log local0.error "Rate limit exceeded for $client_ip"
             HTTP::respond 200 content $::json_response_blocked "Content-Type" "application/json"
             return
