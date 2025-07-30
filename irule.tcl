@@ -17,10 +17,10 @@ when HTTP_REQUEST {
         
         if {$last_request ne "" && [clock seconds] - $last_request < $::rps_value} {
             log local0.error "Rate limit exceeded for $client_ip"
-            HTTP::respond 200 content $::json_response_blocked "Content-Type" "application/json"
+            HTTP::respond 200 content content-type "application/json" $::json_response_blocked "Content-Type" "application/json"
             return
         } else {
-            HTTP::respond 200 content $::json_response_permited "Content-Type" "application/json"
+            HTTP::respond 200 content-type "application/json" content $::json_response_permited "Content-Type" "application/json"
             return
         }
     }
